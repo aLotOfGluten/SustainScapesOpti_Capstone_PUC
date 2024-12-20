@@ -4,62 +4,19 @@ import numpy as np
 import pandas as pd
 from time import time
 import re
-import os
 import sys
-from random import shuffle
 from warnings import warn
 import config.config_join_local_search as config
-
-
-def find_cluster(
-        municip_id, size, municip_dict, municip_sizes, neighbors, iter, ratio
-):
-    cluster = set().union(municip_dict[municip_id])
-    temp_size = municip_sizes[municip_id]
-    queue = list(neighbors[municip_id])
-    municips_added = set([municip_id])
-    while temp_size < size:
-        if queue:
-            municip = queue.pop(0)
-        else:
-            left = [i for i in municip_dict.keys() if i not in municips_added]
-            if left:
-                municip = np.random.choice(left)
-            else:
-                break
-        cluster = cluster.union(municip_dict[municip])
-        temp_size += municip_sizes[municip]
-        new_neighbors = [i for i in neighbors[municip]
-                         if i not in municips_added]
-        if new_neighbors:
-            shuffle(new_neighbors)
-            queue += new_neighbors
-        municips_added.add(municip)
-    
-    with open(config.municip_log_path, 'a') as file:
-        file.write(
-            f'{iter}: '+', '.join([str(i) for i in municips_added])+'\n'
-        )
-    
-    return cluster
+from utils import find_cluster
 
 def main():
-    # args: ratio, max_time, max_iter
     t0 = time()
-    if len(sys.argv) > 1:
-        ratio = float(sys.argv[1])
-        if ratio < 0 or ratio > 1:
-            sys.exit('El ratio debe estar entre 0 y 1')
-    else:
-        ratio = 0.2
-    if len(sys.argv) > 2:
-        max_time = int(sys.argv[2])
-    else:
-        max_time = 1000
-    if len(sys.argv) > 3:
-        max_iter = int(sys.argv[3])
-    else:
-        max_iter = 100
+
+    ratio = config.ratio
+    if ratio < 0 or ratio > 100:
+        sys.exit('El ratio debe estar entre 0 y 100')
+    max_time = config.max_time
+    max_iter = config.max_iter
 
     # Creación de los conjuntos
     cells = []  # Lista de celdas
@@ -90,10 +47,6 @@ def main():
     default_existing_nature = 0
     default_richness = 0
     default_phylo_diversity = 0
-
-    # Definición de la dirección del archivo
-    # ESTO HAY QUE ADAPTARLO
-    file_path = os.path.join('Denmark.dat')
 
     # Asignación de los datos
     with open(config.problem_path, 'r') as file:
@@ -303,11 +256,11 @@ def main():
 
     # Optimización del modelo
     model.setParam('LogToConsole', 0)
-    model.setParam('LogFile', config.logfile)
+    model.setParam('LogFile', config.gurobi_log_file)
     model.setParam('Method', 3)
     model.setParam('ConcurrentMethod', 3)
 
-    with open(config.logfile, 'w') as file:
+    with open(config.gurobi_log_file, 'w') as file:
         pass
 
     if config.join_rest:
@@ -319,6 +272,8 @@ def main():
 
         for cell in solution.keys():
             model.remove(model.getConstrByName(f"Fixed_{cell}"))
+        
+        initial_objval = model.objVal
 
     # Importamos las comunas
     df = pd.read_csv(config.cell_ids).astype(str)
@@ -338,13 +293,10 @@ def main():
     tf = time()
     t_importacion = tf - t0
 
-    summary_path = os.path.join(
-        f'local_search_given_regions_ratio_{ratio}_summary.txt'
-    )
-    with open(summary_path, 'w') as file:
-        file.write(f'Partiendo desde solución inicial:\n')
-        file.write(f'Ratio: {ratio}\n')
-        file.write(f'Tiempo de importación: {t_importacion}\n')
+    with open(config.summary_path, 'w') as file:
+        file.write(f'Summary Local Search {config.Id}:\n')
+        file.write(f'Ratio: {ratio}%\n')
+        file.write(f'Time importing problem: {round(t_importacion)}s\n')
 
     # Implementamos Local Search
     iter = 0
@@ -355,14 +307,11 @@ def main():
     total_cells = len(cells)
     cant_free_cells = round(total_cells * ratio / 100)
 
-    file_path = os.path.join(
-        f'given_regions_ratio_{ratio}.txt'
-    )
-    with open(file_path, 'w') as file:
-        file.write('Iter t_total t_iter cells_changed objval\n')
+    with open(config.log_file, 'w') as file:
+        file.write('Iter total_time iter_time cells_changed objval\n')
     
-    with open(f'municips_ratio_{ratio}.txt', 'w') as file:
-        file.write('iter: municipalities\n')
+    with open(config.municip_log_path, 'w') as file:
+        file.write('iter: municipalities used\n')
 
     abs_t0 = time()
     while t_total < max_time and iter < max_iter:
@@ -375,8 +324,7 @@ def main():
             municip_dict,
             municip_sizes,
             neighbors,
-            iter + 1,
-            ratio
+            iter + 1
         )
         fixed_cells = set()
         for cell, land_use in solution.items():
@@ -418,7 +366,7 @@ def main():
             model.remove(model.getConstrByName(f"Fixed_{c}"))
 
         # Guardamos los resultados de la iteración
-        with open(file_path, 'a') as file:
+        with open(config.log_file, 'a') as file:
             file.write(f'{iter} {t_total} {dt} '
                        f'{cant_cambios} '
                        f'{vals[-1]}\n')
@@ -427,15 +375,19 @@ def main():
     abs_time = abs_tf - abs_t0
 
     # Guardamos los resultados
+    with open(config.summary_path, 'a') as file:
+        file.write(f'Total time in Local Search: {round(abs_time)}s\n')
+        file.write(f'Number of iterations made: {iter}\n')
+        if config.join_rest:
+            file.write(f'Objective value initial solution: {initial_objval}\n')
+        else:
+            file.write(f'Objective value after first iteration: {vals[0]}\n')
+        file.write(f'Final objective value achieved: {vals[-1]}\n')
 
-    with open(summary_path, 'a') as file:
-        file.write(f'Tiempo total de ejecución: {abs_time}\n')
-        file.write(f'Cantidad de iteraciones: {iter}\n')
-        file.write(f'Valor objetivo inicial: {vals[0]}\n')
-        file.write(f'Valor objetivo final: {vals[-1]}\n')
-
-    # IMPORTANTE: MODIFICAR LOS PATHS CUANDO ESTÉN EL RESTO DE ARCHIVOS
-    # PARA MEJOR ORDEN DE LOS LOGS
+    # Guardamos las variables
+    with open(config.results_path, 'w') as file:
+        for cell, land_use in solution.items():
+            file.write(f'{cell} {land_use}\n')
 
 
 if __name__ == '__main__':
