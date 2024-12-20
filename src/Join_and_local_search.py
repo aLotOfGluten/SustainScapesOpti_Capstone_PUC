@@ -325,7 +325,7 @@ def main():
     municip_dict = df.groupby('municip_id')['cell'].apply(set).to_dict()
     municip_sizes = {k: len(v) for k, v in municip_dict.items()}
     neighbors = {}
-    with open('municip_neighbors.txt', 'r') as f:
+    with open(config.municip_neighbors, 'r') as f:
         f.readline()
         for i in range(99):
             s = f.readline().strip()
@@ -352,8 +352,8 @@ def main():
     total_times = []
     times = []
     vals = []
-    total_cells = len(solution.keys())
-    cant_free_cells = round(total_cells * ratio)
+    total_cells = len(cells)
+    cant_free_cells = round(total_cells * ratio / 100)
 
     file_path = os.path.join(
         f'given_regions_ratio_{ratio}.txt'
