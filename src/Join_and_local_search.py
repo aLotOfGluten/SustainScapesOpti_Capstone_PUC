@@ -12,32 +12,34 @@ import config.config_join_local_search as config
 
 
 def find_cluster(
-        comune_id, size, comune_dict, comune_sizes, neighbors, iter, ratio
+        municip_id, size, municip_dict, municip_sizes, neighbors, iter, ratio
 ):
-    cluster = set().union(comune_dict[comune_id])
-    temp_size = comune_sizes[comune_id]
-    queue = list(neighbors[comune_id])
-    comunes_added = set([comune_id])
+    cluster = set().union(municip_dict[municip_id])
+    temp_size = municip_sizes[municip_id]
+    queue = list(neighbors[municip_id])
+    municips_added = set([municip_id])
     while temp_size < size:
         if queue:
-            comune = queue.pop(0)
+            municip = queue.pop(0)
         else:
-            left = [i for i in comune_dict.keys() if i not in comunes_added]
+            left = [i for i in municip_dict.keys() if i not in municips_added]
             if left:
-                comune = np.random.choice(left)
+                municip = np.random.choice(left)
             else:
                 break
-        cluster = cluster.union(comune_dict[comune])
-        temp_size += comune_sizes[comune]
-        new_neighbors = [i for i in neighbors[comune]
-                         if i not in comunes_added]
+        cluster = cluster.union(municip_dict[municip])
+        temp_size += municip_sizes[municip]
+        new_neighbors = [i for i in neighbors[municip]
+                         if i not in municips_added]
         if new_neighbors:
             shuffle(new_neighbors)
             queue += new_neighbors
-        comunes_added.add(comune)
+        municips_added.add(municip)
     
-    with open(config.comune_log_path, 'a') as file:
-        file.write(f'{iter}: '+', '.join([str(i) for i in comunes_added])+'\n')
+    with open(config.municip_log_path, 'a') as file:
+        file.write(
+            f'{iter}: '+', '.join([str(i) for i in municips_added])+'\n'
+        )
     
     return cluster
 
@@ -94,7 +96,7 @@ def main():
     file_path = os.path.join('Denmark.dat')
 
     # Asignación de los datos
-    with open(file_path, 'r') as file:
+    with open(config.problem_path, 'r') as file:
         line_is_can_change = False
         for line in file:
             if line_is_can_change:
@@ -285,10 +287,9 @@ def main():
                             name=f"DefineContiguity3_{l}_{i}_{j}")
 
     # Importamos la solución inicial
-    paths_list = [] # MODIFICAR
     solution = {}
     cells_solution = set()
-    for path in paths_list:
+    for path in config.pathlist:
         with open(path, 'r') as file:
             for line in file:
                 cell, land_use = line.strip().split()
@@ -302,22 +303,29 @@ def main():
 
     # Optimización del modelo
     model.setParam('LogToConsole', 0)
-    path_logfile = os.path.join(
-        f'gurobi_given_regions_ratio_{ratio}.log'
-    )
-    model.setParam('LogFile', path_logfile)
+    model.setParam('LogFile', config.logfile)
     model.setParam('Method', 3)
     model.setParam('ConcurrentMethod', 3)
 
-    with open(path_logfile, 'w') as file:
+    with open(config.logfile, 'w') as file:
         pass
 
+    if config.join_rest:
+        for cell, land_use in solution.items():
+            model.addConstr(LanduseDecision[land_use, cell] == 1,
+                            name=f"Fixed_{cell}")
+
+        model.optimize()
+
+        for cell in solution.keys():
+            model.remove(model.getConstrByName(f"Fixed_{cell}"))
+
     # Importamos las comunas
-    df = pd.read_csv('cell_ids.csv').astype(str)
-    comune_dict = df.groupby('comune_id')['cell'].apply(set).to_dict()
-    comune_sizes = {k: len(v) for k, v in comune_dict.items()}
+    df = pd.read_csv(config.cell_ids).astype(str)
+    municip_dict = df.groupby('municip_id')['cell'].apply(set).to_dict()
+    municip_sizes = {k: len(v) for k, v in municip_dict.items()}
     neighbors = {}
-    with open('comune_neighbors.txt', 'r') as f:
+    with open('municip_neighbors.txt', 'r') as f:
         f.readline()
         for i in range(99):
             s = f.readline().strip()
@@ -353,8 +361,8 @@ def main():
     with open(file_path, 'w') as file:
         file.write('Iter t_total t_iter cells_changed objval\n')
     
-    with open(f'comunes_ratio_{ratio}.txt', 'w') as file:
-        file.write('iter: comunes\n')
+    with open(f'municips_ratio_{ratio}.txt', 'w') as file:
+        file.write('iter: municipalities\n')
 
     abs_t0 = time()
     while t_total < max_time and iter < max_iter:
@@ -362,10 +370,10 @@ def main():
         
         # Elegimos las variables a fijar
         cluster = find_cluster(
-            np.random.choice(list(comune_dict.keys())),
+            np.random.choice(list(municip_dict.keys())),
             cant_free_cells,
-            comune_dict,
-            comune_sizes,
+            municip_dict,
+            municip_sizes,
             neighbors,
             iter + 1,
             ratio
