@@ -18,7 +18,7 @@ def find_cluster(
         iter (int): current iteration of the Local Search, for logging purposes
 
     Returns:
-        set: set of the ids of cells in the cluster
+        cluster (set): set of the ids of cells in the cluster
     
     """
     if iter is None:

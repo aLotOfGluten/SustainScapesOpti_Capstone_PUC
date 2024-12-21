@@ -58,4 +58,4 @@ log_file = f'logs/log_localsearch_{Id}.log'
 
 # Municipality log (output):
 # municipalities used in each iteration of Local Search
-municip_log_path = f'logs/municip_localsearch_log_{Id}.txt'
+municip_log_path = f'logs/municip_log_{Id}.txt'
