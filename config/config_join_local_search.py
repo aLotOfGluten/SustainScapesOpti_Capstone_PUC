@@ -34,10 +34,12 @@ pathlist = [
     'problem_syddanmark_vars.txt'
 ]
 
-# Cell ids (input): csv file with the cells ids and the municipality they belong to
+# Cell ids (input): csv file with the cells ids
+# and the municipality they belong to
 cell_ids = 'data/cell_ids.csv'
 
-# Municipalities neighbors (input): txt file with the neighbors of each municipality
+# Municipalities neighbors (input):
+# txt file with the neighbors of each municipality
 # a.k.a ids of adjacent municipalities
 municip_neighbors = 'data/municip_neighbors.txt'
 

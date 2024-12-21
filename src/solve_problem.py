@@ -1,24 +1,12 @@
 import gurobipy as gp
 from gurobipy import GRB
-import numpy as np
-import pandas as pd
 from time import time
 import re
-import sys
-from warnings import warn
-import config.config_join_local_search as config
-from utils import find_cluster
+import config.config_solve_problem as config
 
 
 def main():
     t0 = time()
-
-    # Setting Local Search parameters
-    ratio = config.ratio
-    if ratio < 0 or ratio > 100:
-        sys.exit('Ratio must be between 0 and 100')
-    max_time = config.max_time
-    max_iter = config.max_iter
 
     # Importing problem
     # Creating sets and dictionaries
@@ -244,21 +232,6 @@ def main():
                             LanduseDecision[l, i] + LanduseDecision[l, j] - 1,
                             name=f"DefineContiguity3_{l}_{i}_{j}")
 
-    # Importing initial solution
-    solution = {}
-    cells_solution = set()
-    for path in config.pathlist:
-        with open(path, 'r') as file:
-            for line in file:
-                cell, land_use = line.strip().split()
-                if cell in cells_solution:
-                    if solution[cell] != land_use:
-                        warn(
-                            f'Two different land uses for cell {cell}, '
-                            f'used the one in {path}'
-                        )
-                solution[cell] = land_use
-
     # Gurobi configuration
     model.setParam('LogToConsole', 0)
     model.setParam('LogFile', config.gurobi_log_file)
@@ -269,135 +242,26 @@ def main():
     with open(config.gurobi_log_file, 'w') as file:
         pass
 
-    # Evaluating initial solution
-    if config.join_rest:
-        for cell, land_use in solution.items():
-            model.addConstr(LanduseDecision[land_use, cell] == 1,
-                            name=f"Fixed_{cell}")
-
-        model.optimize()
-
-        for cell in solution.keys():
-            model.remove(model.getConstrByName(f"Fixed_{cell}"))
-        
-        initial_objval = model.objVal
-
-    # Importing municipalities and neighbors
-    df = pd.read_csv(config.cell_ids).astype(str)
-    municip_dict = df.groupby('municip_id')['cell'].apply(set).to_dict()
-    municip_sizes = {k: len(v) for k, v in municip_dict.items()}
-    neighbors = {}
-    with open(config.municip_neighbors, 'r') as f:
-        f.readline()
-        for i in range(len(municip_dict.keys())):
-            s = f.readline().strip()
-            a, b = s.split(';')
-            if not b:
-                neighbors[a] = set()
-            else:
-                neighbors[a] = set(b.split(','))
-
     tf = time()
     t_import = tf - t0
 
+    t0 = time()
+    model.optimize()
+    tf = time()
+    t_solve = tf - t0
+
     with open(config.summary_path, 'w') as file:
-        file.write(f'Summary Local Search {config.Id}:\n')
-        file.write(f'Ratio: {ratio}%\n')
+        file.write(f'Summary solve problem {config.name}:\n')
         file.write(f'Time importing problem: {round(t_import)}s\n')
-
-    # We run Local Search
-    iter = 0
-    t_total = 0
-    total_times = []
-    times = []
-    vals = []
-    total_cells = len(cells)
-    cant_free_cells = round(total_cells * ratio / 100)
-
-    with open(config.log_file, 'w') as file:
-        file.write('Iter total_time iter_time cells_changed objval\n')
-    
-    with open(config.municip_log_path, 'w') as file:
-        file.write('iter: municipalities used\n')
-
-    abs_t0 = time()
-    while t_total < max_time and iter < max_iter:
-        t0 = time()
-        
-        # Choose the cells to free
-        cluster = find_cluster(
-            np.random.choice(list(municip_dict.keys())),
-            cant_free_cells,
-            municip_dict,
-            municip_sizes,
-            neighbors,
-            iter + 1
-        )
-        
-        # Fix the cells
-        fixed_cells = set()
-        for cell, land_use in solution.items():
-            if cell not in cluster:
-                fixed_cells.add(cell)
-                model.addConstr(LanduseDecision[land_use, cell] == 1,
-                                name=f"Fixed_{cell}")
-                
-        # Solve the model
-        model.optimize()
-        tf = time()
-
-        # Save and update time, gap and iter
-        dt = tf - t0
-        times.append(dt)
-        t_total += dt
-        total_times.append(t_total)
-        
-        vals.append(model.objVal)
-        iter += 1
-
-        # Update the solution
-        new_sol = {}
-        cant_cambios = 0
-        old_cells = set(solution.keys())
-        for c in cells:
-            for l in land_uses:
-                if LanduseDecision[l, c].x > 0.5:
-                    new_sol[c] = l
-        new_cells = set(new_sol.keys())
-        cant_cambios = len(old_cells.symmetric_difference(new_cells))
-        for c in old_cells.intersection(new_cells):
-            if new_sol[c] != solution[c]:
-                cant_cambios += 1
-        solution = new_sol
-
-        # Remove the fixed variables
-        for c in fixed_cells:
-            model.remove(model.getConstrByName(f"Fixed_{c}"))
-
-        # Save the results of the iteration
-        with open(config.log_file, 'a') as file:
-            file.write(f'{iter} {t_total} {dt} '
-                       f'{cant_cambios} '
-                       f'{vals[-1]}\n')
-
-    abs_tf = time()
-    abs_time = abs_tf - abs_t0
-
-    # Save the results in summary
-    with open(config.summary_path, 'a') as file:
-        file.write(f'Total time in Local Search: {round(abs_time)}s\n')
-        file.write(f'Number of iterations made: {iter}\n')
-        if config.join_rest:
-            file.write(f'Objective value initial solution: {initial_objval}\n')
-        else:
-            file.write(f'Objective value after first iteration: {vals[0]}\n')
-        file.write(f'Final objective value achieved: {vals[-1]}\n')
+        file.write(f'Time solving problem: {round(t_solve)}s\n')
+        file.write(f'Objective value: {model.objVal}\n')
 
     # Save the solution found
     with open(config.results_path, 'w') as file:
-        for cell, land_use in solution.items():
-            file.write(f'{cell} {land_use}\n')
-
+        for cell in cells:
+            for land_use in land_uses:
+                if LanduseDecision[land_use, cell].x > 0.5:
+                    file.write(f'{cell} {land_use}\n')
 
 if __name__ == '__main__':
     main()
