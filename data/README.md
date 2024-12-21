@@ -1,7 +1,3 @@
-# TO DO:
-- README
-
-
 # Data Files Documentation
 
 In this directory are all the files necessary for the use of the algorithms in `/src`.
