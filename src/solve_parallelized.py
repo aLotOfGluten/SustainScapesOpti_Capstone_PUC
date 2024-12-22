@@ -6,7 +6,7 @@ def solve_subproblem(n_problem, threads):
     from gurobipy import GRB
     from time import time
     import re
-    import SustainScapesOpti_Capstone_PUC.config.config_solve_parallelized as config
+    import config.config_solve_parallelized as config
 
     t0 = time()
 
@@ -273,7 +273,7 @@ def main():
 
     import multiprocessing
     import concurrent.futures
-    import SustainScapesOpti_Capstone_PUC.config.config_solve_parallelized as config
+    import config.config_solve_parallelized as config
 
 
     def divide_int(total, n):
@@ -302,4 +302,7 @@ def main():
 
         # Collect results (objVals)
         results = [f.result() for f in futures]
+
+if __name__ == '__main__':
+    main()
 
