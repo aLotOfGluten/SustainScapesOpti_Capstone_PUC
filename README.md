@@ -29,6 +29,7 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 
 ## 4. Repository Structure
 
+# **Actualizar acá**
 
 ```plaintext
 SustainScapesOpti/
@@ -81,6 +82,8 @@ SustainScapesOpti/
 ### 5.2 Usage
 
 1. Set up 
+
+1. Correr todo junto.
 
 
 # TO DO

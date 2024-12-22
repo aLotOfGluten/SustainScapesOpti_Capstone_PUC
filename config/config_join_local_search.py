@@ -34,10 +34,10 @@ problem_path = 'data/Denmark.dat'
 # Path_list (input):
 # Files to be imported as initial solution
 pathlist = [
-    'problem_midtjylland_vars.txt',
-    'problem_nordjylland_vars.txt',
-    'problem_sjaelland_vars.txt',
-    'problem_syddanmark_vars.txt'
+    'results/problem_midtjylland_vars.txt',
+    'results/problem_nordjylland_vars.txt',
+    'results/problem_sjaelland_vars.txt',
+    'results/problem_syddanmark_vars.txt'
 ]
 
 # Cell ids (input):
