@@ -95,6 +95,6 @@ The original SustainScapes optimization repository can be found at [SustainScape
 
 Repository made by students of the Pontificia Univerisdad Católica de Chile in assosiation with SustainScapes and Aarhus University.
 
-## 8. Liscence
+## 8. Licence
 
 This project is licensed under the terms specified in the LICENSE file. Ensure compliance when using this repository.

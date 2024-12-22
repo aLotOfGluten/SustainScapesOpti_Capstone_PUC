@@ -51,7 +51,7 @@ municip_neighbors = 'data/municip_neighbors.txt'
 
 # Results (output):
 # File path for the file with the asignment of cells in found solution
-results_path = f'results/vars_localsearch_{Id}.csv'
+results_path = f'results/vars_localsearch_{Id}.txt'
 
 # Summary (output):
 # File path of the summary of the results of the Local Search

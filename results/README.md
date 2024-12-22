@@ -1,12 +1,26 @@
 # Configuration Files Directory (`results`)
 
-This directory contains the results of the optimization process, either resulting from solve_problem.py or from join_and_local_search.
+This directory contains the results of the optimization process, either resulting from `solve_problem.py` or from `join_and_local_search`.
 
 ---
+The files follow the naming convention
+```
+vars_{script}_{test_name}.txt
+```
+`{script}`  identifies the source script,
+`localsearch` if created by `join_local_search.py` and
+`problem` if created by `solve_problem.py`. `identifier` identifies the run of
+the test.
+These files contain and contain the solution found of the optimized land use for each cell
+in the problem. The format for each row is
+```
+{cell id} {land use}.
+```
 
-### Types of files found:
-
-
-- **`vars_problem_{test_name}.csv`**: .csv file that contains the information of the optimized land use for each cell in the problem. The format for each row is {cell id} | {land use}.
-
-- **`summary_problem_{test_name}.txt`**: .txt file that contains a summary of optimization solving process. It includes the time importing the optimization problem, the time solving the optimization problem and the maximum value of the optimization function.
+**Example**:
+```
+2721492 FDR_N
+2723791 FDR_N
+1345806 ODR_N
+1345807 ODR_N
+```

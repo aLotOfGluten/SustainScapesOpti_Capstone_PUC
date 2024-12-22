@@ -8,16 +8,15 @@ It utilizes the parameters and conditions set up in ../config/config_join_local_
 
 ## Files Overview
 
-
 ### `solve_problem.py`
 - **Description**: Provides the optimal solution to the optimization problem to one .dat file utilizing the Gurobipy solver.
 - **Dependencies**:
   - `gurobipy`
-  - Custom configurations from `config/config_solve_problem.py`
+  - Variables and paths set in `config/config_solve_problem.py`
 
 ### `Join_and_local_search.py`
-- **Description**: Merges several solved areas into one and implements a local search algorithm integrated with Gurobi to iteratively optimize land-use allocation while satisfying various constraints such as budget, spatial contiguity, and minimum allocations for specific land-use types.
-    - Outputs the final solution and relevant performance metrics into the ../results directory.
+- **Description**: Imports an initial solution (which can be one saved in one or more files) and implements a local search algorithm integrated with Gurobi to iteratively optimize land-use allocation while satisfying various constraints such as budget, spatial contiguity, and minimum allocations for specific land-use types.
+    - Outputs the final solution and relevant performance metrics into the `../results/` directory.
 
 - **Dependencies**:
   - `gurobipy`
