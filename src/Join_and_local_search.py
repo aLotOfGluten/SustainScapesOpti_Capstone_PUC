@@ -270,7 +270,7 @@ def main():
         pass
 
     # Evaluating initial solution
-    if config.join_rest:
+    if config.eval:
         for cell, land_use in solution.items():
             model.addConstr(LanduseDecision[land_use, cell] == 1,
                             name=f"Fixed_{cell}")
@@ -387,7 +387,7 @@ def main():
     with open(config.summary_path, 'a') as file:
         file.write(f'Total time in Local Search: {round(abs_time)}s\n')
         file.write(f'Number of iterations made: {iter}\n')
-        if config.join_rest:
+        if config.eval:
             file.write(f'Objective value initial solution: {initial_objval}\n')
         else:
             file.write(f'Objective value after first iteration: {vals[0]}\n')
