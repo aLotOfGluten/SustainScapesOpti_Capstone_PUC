@@ -29,13 +29,13 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 
 ## 4. Repository Structure
 
-# **Actualizar acá**
 
 ```plaintext
 SustainScapesOpti/
 ├── config/                   # Configuration files for optimization scripts
 │   ├── config_join_local_search.py
 │   ├── config_solve_problem.py
+│   ├── config_solve_parallelized.py
 ├── data/                     # Input datasets
 │   ├── cell_ids.csv
 │   ├── municip_keys.csv
@@ -49,6 +49,7 @@ SustainScapesOpti/
 ├── src/                      # Core source code
 │   ├── join_and_local_search.py
 │   ├── solve_problem.py
+│   ├── solve_parallelized.py
 │   ├── utils.py
 │   └── README.md
 ├── .gitignore
@@ -59,12 +60,14 @@ SustainScapesOpti/
 ### 4.1 Directories and Key files:
 - **`/config`**: Configuration files for running the optimization scripts in ../src. Must be set up properly before running.
     - **`config_solve_problem`**: Configuration for `solve_problem.py`.
+    - **`config_solve_paralellized`**: Configuration for `solve_parallelized.py`.
     - **`config_join_local_search`**: Configuration for `join_and_local_search.py`.
 - **`/data`**: Input datasets, including cell IDs, municipality mappings, and adjacency relationships.
 - **`/logs`**: Logs generated during optimization runs.
 - **`/results`**: Output files containing the optimized solutions.
 - **`/src`**: Core source code for solving the optimization problem.
     - **`solve_problem.py`**: Python file that solves a single region separately.
+    - **`solve_parallelized.py`**: Python file that solves for all regions in parallel.
     - **`join_and_local_search.py`**: Python file that joins separate solutions, joins them and then performs local search on them.
 
 
@@ -81,10 +84,26 @@ SustainScapesOpti/
 
 ### 5.2 Usage
 
-1. Set up 
+1. Set up Configuration
 
-1. Correr todo junto.
+Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
+- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem. 
+- **`/configjoin_local_search.py`**: Configure parameters and path for joining solutions and performing local search optimization.
 
+2. Prepare Data
+
+Ensure the input data files in the **`/data`** directory are available.
+
+3. Running the Scripts
+
+
+4. Log Monitoring
+
+Logs for each run are saved in the **`/logs`** directory. Refer to **`/Logs_README.md`** for details.
+
+5. Output
+
+The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. 
 
 # TO DO
 # Terminar acá.
