@@ -1,0 +1,7 @@
+Summary Local Search 0:
+Ratio: 10.0%
+Time importing problem: 1683s
+Total time in Local Search: 1527s
+Number of iterations made: 1
+Objective value initial solution: 14084.618799998498
+Final objective value achieved: 14121.48989999852

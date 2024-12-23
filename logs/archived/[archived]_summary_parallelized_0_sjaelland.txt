@@ -1,0 +1,3 @@
+Time importing problem: 182s
+Time solving problem: 1532s
+Objective value: 3653.9974956463825
