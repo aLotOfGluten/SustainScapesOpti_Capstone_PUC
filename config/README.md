@@ -15,7 +15,7 @@ This directory contains the configuration files required for running the optimiz
     - `summary_path`: Summary of results for the problem-solving process.
     - `gurobi_log_file`: Log file for Gurobi operations.
 
-### `config_all.py`
+### `config_run_all.py`
 - **Description**: Configuration file for solving the problem parallelized and the Join and Local Search algorithm.
 - Has two sections:
  
@@ -35,6 +35,7 @@ This directory contains the configuration files required for running the optimiz
 #### Configuration of `join_local_search.py`
 - **Description**: Configuration file for the Join and Local Search algorithm.
 - **Key Configurations**:
+  - **localsearch**: Boolean, determines whether to run localsearch or not.
   - **ratio**: Percentage of cells freed during local search.
   - **max_time**: Maximum runtime for the Local Search algorithm (in seconds).
   - **max_iter**: Maximum number of iterations for Local Search.

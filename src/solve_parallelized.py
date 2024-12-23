@@ -6,7 +6,7 @@ def solve_subproblem(n_problem, threads):
     from gurobipy import GRB
     from time import time
     import re
-    import config.config as config
+    import config.config_run_all as config
 
     t0 = time()
 

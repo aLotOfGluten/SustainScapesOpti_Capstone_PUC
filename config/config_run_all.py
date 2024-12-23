@@ -1,11 +1,11 @@
 ####################################################################
-# Description: Configuration file for ../scr/solve_parallelized.py #
+# Description: Configuration for ../scr/solve_parallelized.py #
 ####################################################################
+
 # Id (var): Identifies the test from other runs of the same algorithm
 # It is used to name the output files,
 # so it is recommended to change it to avoid overwriting
-Id = 0
-
+Id = 'test0'
 
 # Problem (input): file path of the .dat with complete problem
 problem_path = 'data/Denmark.dat'
@@ -61,6 +61,11 @@ gurobi_log_file_par = [
 ##################################################################
 # Description: Configuration file for the Local Search algorithm #
 ##################################################################
+
+# Local Search (var):
+# If True, the Local Search algorithm will be executed
+# If False, the Local Search algorithm will not be executed
+localsearch = True
 
 # Ratio (var):
 # ratio of the number of cells freed in the local search

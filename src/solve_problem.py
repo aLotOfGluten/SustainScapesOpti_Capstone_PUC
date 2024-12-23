@@ -2,7 +2,7 @@ import gurobipy as gp
 from gurobipy import GRB
 from time import time
 import re
-import config.config as config
+import config.config_solve_problem as config
 
 
 def main():

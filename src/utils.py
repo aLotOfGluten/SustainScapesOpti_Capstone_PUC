@@ -1,6 +1,6 @@
 from random import shuffle
 import numpy as np
-import config.config_join_local_search as config
+import config.config_run_all as config
 
 def find_cluster(
         municip_id, size, municip_dict, municip_sizes, neighbors, iter = None
