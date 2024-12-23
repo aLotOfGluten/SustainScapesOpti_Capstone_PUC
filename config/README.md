@@ -15,10 +15,26 @@ This directory contains the configuration files required for running the optimiz
     - `summary_path`: Summary of results for the problem-solving process.
     - `gurobi_log_file`: Log file for Gurobi operations.
 
-### `config_join_local_search.py`
+### `config_all.py`
+- **Description**: Configuration file for solving the problem parallelized and the Join and Local Search algorithm.
+- Has two sections:
+ 
+## Configuration of `solve_parallelized.py`
+- **Description**: Configuration file for solving the problem directly without Local Search.
+- **Key Configurations**:
+  - **Id**: Identifies the test to avoid overwriting output files.
+  - **name**: Names of tests. Identifies the test to avoid overwriting output files.
+  - **Input File**:
+    - `problem_path`: Path to the `.dat` file with the problem definition.
+    - `problems_pathlist`: Paths to the `.dat` file with the definition of each problem.
+  - **Output Files**:
+    - `results_path_par`: File to save the optimized cell assignments.
+    - `summary_path_par`: Summary of results for the problem-solving process.
+    - `gurobi_log_file_par`: Log file for Gurobi operations.
+
+## Configuration of `join_local_search.py`
 - **Description**: Configuration file for the Join and Local Search algorithm.
 - **Key Configurations**:
-  - **Id**: Identifies the test to avoid overwriting output files. 
   - **ratio**: Percentage of cells freed during local search.
   - **max_time**: Maximum runtime for the Local Search algorithm (in seconds).
   - **max_iter**: Maximum number of iterations for Local Search.
