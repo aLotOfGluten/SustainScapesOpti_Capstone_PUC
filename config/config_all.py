@@ -33,7 +33,7 @@ subproblem_count = len(problems_pathlist)
 # Results (output): file path for the file with the asignment of cells
 # in found solution
 
-results_path = [
+results_path_par = [
     'results/problem_midtjylland_vars.txt',
     'results/problem_nordjylland_vars.txt',
     'results/problem_sjaelland_vars.txt',
@@ -41,7 +41,7 @@ results_path = [
 ]
 
 # Summary (output): file path of the summary of the results.
-summary_path = [
+summary_path_par = [
     f'logs/summary_parallelized_{Id}_midtjylland.txt',
     f'logs/summary_parallelized_{Id}_nordjylland.txt',
     f'logs/summary_parallelized_{Id}_sjaelland.txt',
@@ -49,7 +49,7 @@ summary_path = [
 ]
 
 # Gurobi LogFile (output): file path of the Gurobi log file
-gurobi_log_file = [
+gurobi_log_file_par = [
     f'logs/parallelized_gurobi_log_{Id}_midtjylland.log',
     f'logs/parallelized_gurobi_log_{Id}_nordjylland.log',
     f'logs/parallelized_gurobi_log_{Id}_sjaelland.log',
