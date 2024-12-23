@@ -42,7 +42,7 @@ def solve_subproblem(n_problem, threads):
     path_to_dat = config.problems_pathlist[n_problem]
 
     # Asigning values to the sets and dictionaries
-    with open(config.problems_pathlistcd[n_problem], 'r') as file:
+    with open(config.problems_pathlist[n_problem], 'r') as file:
         line_is_can_change = False
         for line in file:
             if line_is_can_change:

@@ -52,6 +52,7 @@ SustainScapesOpti/
 │   ├── solve_parallelized.py
 │   ├── utils.py
 │   └── README.md
+├── run_all.py
 ├── .gitignore
 ├── LICENSE
 └── README.md                 # Main repository README
@@ -69,6 +70,7 @@ SustainScapesOpti/
     - **`solve_problem.py`**: Python file that solves a single region separately.
     - **`solve_parallelized.py`**: Python file that solves for all regions in parallel.
     - **`join_and_local_search.py`**: Python file that joins separate solutions, joins them and then performs local search on them.
+- **`run_all.py`**: Python file that runs **`solve_parallelized.py`** and **`join_and_local_search.py`**.
 
 
 ## 5. Getting Started

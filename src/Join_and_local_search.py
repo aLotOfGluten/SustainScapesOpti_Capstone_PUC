@@ -7,7 +7,7 @@ import re
 import sys
 from warnings import warn
 import config.config_join_local_search as config
-from utils import find_cluster
+from src.utils import find_cluster
 
 
 def main():

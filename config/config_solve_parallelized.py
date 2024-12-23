@@ -59,15 +59,15 @@ municip_neighbors = 'data/municip_neighbors.txt'
 # in found solution
 
 results_path = [
-    f'results/vars_pararellized_{Id}_midtjylland.txt',
-    f'results/vars_pararellized_{Id}_nordjylland.txt',
-    f'results/vars_pararellized_{Id}_sjaelland.txt',
-    f'results/vars_pararellized_{Id}_syddanmark.txt'
+    f'results/vars_parallelized_{Id}_midtjylland.txt',
+    f'results/vars_parallelized_{Id}_nordjylland.txt',
+    f'results/vars_parallelized_{Id}_sjaelland.txt',
+    f'results/vars_parallelized_{Id}_syddanmark.txt'
 ]
 
 # Summary (output): file path of the summary of the results.
 summary_path = [
-    f'logs/summary_pararellized_{Id}_midtjylland.txt',
+    f'logs/summary_parallelized_{Id}_midtjylland.txt',
     f'logs/summary_parallelized_{Id}_nordjylland.txt',
     f'logs/summary_parallelized_{Id}_sjaelland.txt',
     f'logs/summary_parallelized_{Id}_syddanmark.txt'
