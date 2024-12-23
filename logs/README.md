@@ -11,6 +11,17 @@ It's important to note that the file `run_all.py` runs both `solve_parallelized.
 
 Sumary logs provide a summary of the algorithm's run. They include: 
 
+<<<<<<< HEAD
+=======
+---
+## Logs Created by `solve_problem.py` or `solve_parallelized.py`
+### **Summary problem solve**
+**Naming Convention**
+```
+summary_problem_{identifier}.txt
+```
+These logs provide a summary of the algorithm's run. These include
+>>>>>>> origin/main
 - Problem identifier
 - Time importing problem variables and restrictions
 - Time solving the problem with Gurobi

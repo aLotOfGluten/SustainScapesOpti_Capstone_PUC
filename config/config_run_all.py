@@ -37,7 +37,11 @@ results_path_par = [
     'results/vars_problem_midtjylland.txt',
     'results/vars_problem_nordjylland.txt',
     'results/vars_problem_sjaelland.txt',
+<<<<<<< HEAD
     'results/vars_problem_syddanmark.txt'
+=======
+    'results/vars_problem_syddanmar.txt'
+>>>>>>> origin/main
 ]
 
 # Summary (output): file path of the summary of the results.
