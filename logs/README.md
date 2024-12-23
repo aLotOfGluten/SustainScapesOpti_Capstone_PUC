@@ -14,8 +14,8 @@ gurobi_log_{script}_{identifier}.log
 These logs capture the output from Gurobi's optimization processes.  
 - If the algorithm invokes Gurobi multiple times, the logs are appended sequentially.  
 - The `{script}` part of the filename identifies the source script.
-`localsearch` if created by `join_local_search.py` and
-`problem` if created by `solve_problem.py`.
+`localsearch` if created by `join_local_search.py`,
+`problem` if created by `solve_problem.py` and `parallelized` if created by `solve_parallelized.py`.
 - For detailed information about the format and structure of Gurobi logs, refer to the [Gurobi Logging Documentation](https://docs.gurobi.com/projects/optimizer/en/current/concepts/logging.html).
 
 ---
