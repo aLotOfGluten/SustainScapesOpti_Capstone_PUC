@@ -2,7 +2,7 @@
 
 This directory contains the core source code for the SustainScapesOpti project. The primary purpose of these scripts is to perform optimization for land-use planning using a combination of Gurobi optimization and local search techniques.
 
-It utilizes the parameters and conditions set up in `../config`. In order for the scripts to work correctly, the .dat must be constructing using the corresponding parameters and format. This can be done through the use of the TroublemakerR **R** library, documentation at https://cran.r-project.org/web/packages/TroublemakeR/TroublemakeR.pdf.
+It utilizes the parameters and conditions set up in `../config`.
 
 ---
 

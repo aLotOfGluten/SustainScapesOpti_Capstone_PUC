@@ -68,7 +68,7 @@ gurobi_log_file_par = [
 localsearch = True
 
 # Ratio (var):
-# ratio of the number of cells freed in the local search
+# Ratio of the number of cells freed in the local search
 # as a percentage of the total number of cells in the problem
 ratio = 10.0
 

@@ -16,7 +16,8 @@ This directory contains the configuration files required for running the optimiz
     - `gurobi_log_file`: Log file for Gurobi operations.
 
 ### `config_run_all.py`
-- **Description**: Configuration file for solving the problem parallelized and the Join and Local Search algorithm.
+- **Description**: Configure parameters and paths for `run_all.py`,
+`src/solve_parallelized.py` and `src/join_and_local_search.py`.
 - Has two sections:
  
 #### Configuration of `solve_parallelized.py`

@@ -2,6 +2,8 @@
 
 In this directory are all the files necessary for the use of the algorithms in `/src`.
 
+In order for the scripts to work correctly, the .dat must be constructing using the corresponding parameters and format. This can be done through the use of the TroublemakerR **R** library, documentation at https://cran.r-project.org/web/packages/TroublemakeR/TroublemakeR.pdf.
+
 ---
 
 ### **RegionProblems.zip**

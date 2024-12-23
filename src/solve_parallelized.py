@@ -274,7 +274,7 @@ def main():
 
     import multiprocessing
     import concurrent.futures
-    import config.config_solve_parallelized as config
+    import config.config_run_all as config
 
     def distribute_cores_min_2(total_cores, n_subproblems):
 

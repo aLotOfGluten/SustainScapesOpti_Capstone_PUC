@@ -33,9 +33,7 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 ```
 SustainScapesOpti_Capstone_PUC/
 ├── config/
-│   ├── config_join_local_search.py
 │   ├── config_run_all.py
-│   ├── config_solve_parallelized.py
 │   ├── config_solve_problem.py
 │   ├── README.md
 ├── data/
@@ -91,7 +89,7 @@ SustainScapesOpti_Capstone_PUC/
 
 ### 5.2 Usage
 
-1. Set up Configuration
+#### 1. Set up Configuration
 
 Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
 - **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem with `src/solve_problem.py`. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
@@ -104,46 +102,51 @@ This file is divided is divided into two parts, both must be configured to run
 
 > :warning: **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
 
-All paths are relative to the main directory.
+All paths are relative to the main directory. For more information about the configuration files, refer to `config/README.md`.
 
-2. Prepare Data
+#### 2. Prepare Data
 
-Ensure the input data files in the **`/data`** directory are available.
+Ensure the input data files in the **`/data`** directory are available and in the correct format.
 
-3. Running the Scripts
+#### 3. Running the Scripts
 
-To run the whole algorithm, run the file **`run_all.py`** from the main folder. It is also possible to run each step separately running the corresponding file from **`/src`** 
+To run the whole algorithm, solving the problem by parts, joining them and improving the solution with local search, run the file **`run_all.py`** from the main folder. It is also possible to run each step separately running the corresponding file from **`/src`**, although it is not recommended, except for debugging specific files. To solve the problem or a subproblem exactly use **`src/solve_problem.py`**.
 
-4. Log Monitoring
+It is highly recommended to run the scripts in a computer cluster or server, specially for large problems.
+
+> **Note**: Sometimes clusters can have trouble running files directly from the `/src` directory. If path related errors appear when running a scrpit other than `run_all.py`, consider moving the code file to be run, to the main directory.
+
+#### 4. Log Monitoring
 
 Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/README.md`** for details.
 
-5. Output
+#### 5. Results
 
-The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. To evaluate the performance of the partitions see how to do it **`/logs/README.md`**.
+The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions.
 
 ## 6. The solving algorithm
 
-### 6.1 Local Search
+### 6.1 General algorithm
 
-In order to estimate the solution to the optimization problem, a novel algorithm was designed following the structure of **local search**. The algorithm has the following structure:
+In order to estimate the solution to the optimization problem, an algorithm was designed following the **local search** approach, with the following structure:
 
-1. **Initial solution**: The original .dat file is divided into smaller, significantly faster to solve .dat's. This .dat's are then solved in paralel utilizing *Gurobi* and merged in order to form the initial solution for the **local search**.
+1. **Initial solution**: The original problem is solved by parts and merged  to form the initial solution for the **local search**.
 
-2. **Local Search**:  
-    1. Firstly, a random Denmark comune is selected.
-    2. Then, through a **BFS** algorithm across the comunes, a cluster comprissed of neighbor comunes is created. **BFS** only stops adding new comunes to the cluster once it has covered a certain rate of the total land area. This total land coverage percentage can be changed via the `rate` parameter in the respective `../config/..` files. In the case the **BFS** finds itself without any neighbors, a new strating point is selected and used in conjuntion.
-    3. The cells inside the cluster are then **re-optimized** using *Gurobi*, while the rest of the cells stay locked in their current assignment.  
+2. **Local Search**:
+    Then, the initial solution is improved iteratively by
+    1. Firstly, a random municipality or district is selected.
+    2. Then, through a **BFS** algorithm across the districts, a connected cluster comprised of municipalities is selected. The search only stops adding new municipalities to the cluster once it has covered a certain portion of the total land area. This total land coverage percentage can be changed in the respective `../config/..` files. In case the algorithm has added an entire connected group of districts, but hasn't yet reached the required size, a new starting point is selected and the new municipalities are added to the cluster.
+    3. The cells in the incumbent solution that are not part of the cluster, are fixed by temporarily addind restrictions to the optimization problem. This allows *Gurobi* to find a better feasible solution, similar to the previous one, in a relatively short time.  
     4. After Gurobi solves for the freed cells, we obtain a new solution. We then **update** our “best-known solution” if the new one is better according to the optimization objective. 
-    5. The process repeats itself until either a **maximum number of iterations** or a **time limit** is reached.
+    5. Steps 1 through 4 are repeated until a **maximum number of iterations** or a **time limit** is reached.
 
-### 6.1.1. The Rate parameter
+### 6.1.1. The ratio parameter
 
-The `rate` parameter is one of the main parameters of algorith. A rate closer to 0 means selecting low portions of land to **re-optimize** in each iteration meanwhile having a `rate` closer to 100 means solving the entire problem altoghether.
+The `ratio` parameter is one of the main parameters of algorith. A ratio closer to 0 means selecting small portions of land to **re-optimize** in each iteration meanwhile having a `ratio` closer to 100 means solving almost the entire problem.
 
-Consecuently, having a small `rate` means faster iterations but less change to optimality and a big `rate` means slower iterations but more change to optimallity.
+Consequently, a small `ratio` means faster iterations but has less potential better optimality and a big `ratio` means slower iterations but more change to optimallity.
 
-It is advised to experiment with different `rate`'s, altough values between 0.1 and 0.6 are advised.
+It is advised to experiment with different `ratio`'s, altough values between 0.1 and 0.6 are advised.
 
 ### 6.2 Parallelizing
 
