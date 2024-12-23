@@ -5,24 +5,6 @@
 # so it is recommended to change it to avoid overwriting
 Id = 0
 
-# Ratio (var): ratio of the number of cells freed in the local search
-# as a percentage of the total number of cells in the problem
-ratio = 10.0
-
-# Time limit (var): time limit for the Local Search algorithm
-max_time = 1000
-
-# Iterations (var): maximum number of iterations for the Local Search algorithm
-# The algorithm will stop if either the time limit or 
-# the maximum number of iterations is reached
-max_iter = 100
-
-# Join (var): join restrictions and evaluate initial solution
-# before Local Search.
-# If False, the Local Search will not evaluate the initial solution
-# and will start improving it with local search immediately
-join_rest = True
-
 # Problem (input): file path of the .dat with complete problem
 problem_path = 'data/Denmark.dat'
 
@@ -45,15 +27,6 @@ problems_pathlist = [
 
 # Number of subproblems/regions
 subproblem_count = len(problems_pathlist)
-
-# Cell ids (input): csv file with the cells ids
-# and the municipality they belong to
-cell_ids = 'data/cell_ids.csv'
-
-# Municipalities neighbors (input):
-# txt file with the neighbors of each municipality
-# a.k.a ids of adjacent municipalities
-municip_neighbors = 'data/municip_neighbors.txt'
 
 # Results (output): file path for the file with the asignment of cells
 # in found solution
@@ -80,13 +53,3 @@ gurobi_log_file = [
     f'logs/parallelized_gurobi_log_{Id}_sjaelland.log',
     f'logs/parallelized_gurobi_log_{Id}_syddanmark.log',
 ]
-
-
-
-# # Log File (output): file path of the log file of the Local Search
-# log_file = f'logs/log_localsearch_{Id}.log'
-
-# # Municipality log (output):
-# # municipalities used in each iteration of Local Search
-# municip_log_path = f'logs/municip_log_{Id}.txt'
-
