@@ -275,12 +275,21 @@ def main():
     import concurrent.futures
     import config.config_solve_parallelized as config
 
+    def distribute_cores_min_2(total_cores, n_subproblems):
 
-    def divide_int(total, n):
+        '''
+        Distribute cores among subproblems evenly if there are at least 2 cores per subproblem.
+        Else, returns 2 cores per subproblem.
+        '''
 
-        quotient, remainder = divmod(total, n)
-        result = [quotient + 1] * remainder + [quotient] * (n - remainder)
-        return result
+        if 2 * n_subproblems <= total_cores:
+            leftover = total_cores - 2*n_subproblems
+            base, remainder = divmod(leftover, n_subproblems)
+            distribution = [(2 + base + 1) for _ in range(remainder)] \
+                        + [(2 + base) for _ in range(n_subproblems - remainder)]
+            return distribution
+        else:
+            return [2]*n_subproblems
 
     # Number of available cores
     num_cores = multiprocessing.cpu_count()
@@ -291,17 +300,19 @@ def main():
     # Subproblem count
     subproblem_count = config.subproblem_count
 
-    thread_distribution = divide_int(num_cores, subproblem_count)
+
+    thread_distribution = distribute_cores_min_2(num_cores, subproblem_count)
+
+    max_workers = min(subproblem_count, num_cores // 2)
+
+
     print(f"Thread distribution among the {thread_distribution} subproblems: {thread_distribution}")
     
-    with concurrent.futures.ProcessPoolExecutor(max_workers=subproblem_count) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = []
         for i in range(subproblem_count):
             # Resolver subproblema
             futures.append(executor.submit(solve_subproblem, i, thread_distribution[i]))
-
-        # Collect results (objVals)
-        results = [f.result() for f in futures]
 
 if __name__ == '__main__':
     main()
