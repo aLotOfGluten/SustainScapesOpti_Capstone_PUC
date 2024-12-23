@@ -34,10 +34,10 @@ subproblem_count = len(problems_pathlist)
 # in found solution
 
 results_path_par = [
-    'results/problem_midtjylland_vars.txt',
-    'results/problem_nordjylland_vars.txt',
-    'results/problem_sjaelland_vars.txt',
-    'results/problem_syddanmark_vars.txt'
+    'results/vars_problem_midtjylland.txt',
+    'results/vars_problem_nordjylland.txt',
+    'results/vars_problem_sjaelland.txt',
+    'results/vars_problem_syddanmar.txt'
 ]
 
 # Summary (output): file path of the summary of the results.

@@ -19,7 +19,7 @@ These logs capture the output from Gurobi's optimization processes.
 - For detailed information about the format and structure of Gurobi logs, refer to the [Gurobi Logging Documentation](https://docs.gurobi.com/projects/optimizer/en/current/concepts/logging.html).
 
 ---
-## Logs Created by `solve_problem.py`
+## Logs Created by `solve_problem.py` or `solve_parallelized.py`
 ### **Summary problem solve**
 **Naming Convention**
 ```
