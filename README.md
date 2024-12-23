@@ -64,8 +64,7 @@ SustainScapesOpti/
 ### 4.1 Directories and Key files:
 - **`/config`**: Configuration files for running the optimization scripts in `../src`. Must be set up properly before running.
     - **`config_solve_problem`**: Configuration for `solve_problem.py`.
-    - **`config_solve_paralellized`**: Configuration for `solve_parallelized.py`.
-    - **`config_join_local_search`**: Configuration for `join_and_local_search.py`.
+    - **`config_run_all`**: Configuration for `solve_parallelized.py` and `join_and_local_search.py`.
 - **`/data`**: Input datasets, including cell IDs, municipality mappings, and adjacency relationships.
 - **`/logs`**: Logs generated during optimization runs.
 - **`/results`**: Output files containing the optimized solutions.
@@ -92,9 +91,15 @@ SustainScapesOpti/
 1. Set up Configuration
 
 Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
-- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
-- **`/config_solve_parallelized.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`names`**, **`problems_pathlist`** and **`problem_path`**.
-- **`/config_join_local_search.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`pathlist`** and **`problem_path`**.
+- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem with `src/solve_problem.py`. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
+- **`/config_run_all.py`**: Configure parameters and paths for `run_all.py`,
+`src/solve_parallelized.py` and `src/join_and_local_search.py`.
+This file is divided is divided into two parts, both must be configured to run
+`run_all.py`. To run only one of the underlying codes:
+  - First half is designed to configure `src/solve_parallelized.py`
+  - Second half is designed to configure `src/join_and_local_search.py`
+
+> **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
 
 All paths are relative to the main directory.
 
