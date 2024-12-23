@@ -102,7 +102,9 @@ This file is divided is divided into two parts, both must be configured to run
   - First half is designed to configure `src/solve_parallelized.py`
   - Second half is designed to configure `src/join_and_local_search.py`
 
-> **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
+---
+> [! WARNING] **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
+---
 
 All paths are relative to the main directory.
 
