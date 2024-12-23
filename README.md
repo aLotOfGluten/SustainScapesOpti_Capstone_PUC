@@ -75,58 +75,9 @@ SustainScapesOpti_Capstone_PUC/
     - **`join_and_local_search.py`**: Python file that joins separate solutions, joins them and then performs local search on them.
 - **`run_all.py`**: Python file that runs **`solve_parallelized.py`** and **`join_and_local_search.py`**.
 
+## 5. The solving algorithm
 
-## 5. Getting Started
-
-### 5.1 Dependencies:
-
-- Python 3.8+
-- Gurobi
-- Libraries:
-  - `numpy`
-  - `pandas`
-  - `gurobipy`
-
-### 5.2 Usage
-
-#### 1. Set up Configuration
-
-Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
-- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem with `src/solve_problem.py`. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
-- **`/config_run_all.py`**: Configure parameters and paths for `run_all.py`,
-`src/solve_parallelized.py` and `src/join_and_local_search.py`.
-This file is divided is divided into two parts, both must be configured to run
-`run_all.py`. To run only one of the underlying codes:
-  - First half is designed to configure `src/solve_parallelized.py`
-  - Second half is designed to configure `src/join_and_local_search.py`
-
-> :warning: **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
-
-All paths are relative to the main directory. For more information about the configuration files, refer to `config/README.md`.
-
-#### 2. Prepare Data
-
-Ensure the input data files in the **`/data`** directory are available and in the correct format.
-
-#### 3. Running the Scripts
-
-To run the whole algorithm, solving the problem by parts, joining them and improving the solution with local search, run the file **`run_all.py`** from the main folder. It is also possible to run each step separately running the corresponding file from **`/src`**, although it is not recommended, except for debugging specific files. To solve the problem or a subproblem exactly use **`src/solve_problem.py`**.
-
-It is highly recommended to run the scripts in a computer cluster or server, specially for large problems.
-
-> **Note**: Sometimes clusters can have trouble running files directly from the `/src` directory. If path related errors appear when running a scrpit other than `run_all.py`, consider moving the code file to be run, to the main directory.
-
-#### 4. Log Monitoring
-
-Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/README.md`** for details.
-
-#### 5. Results
-
-The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions.
-
-## 6. The solving algorithm
-
-### 6.1 General algorithm
+### 5.1 General algorithm
 
 In order to estimate the solution to the optimization problem, an algorithm was designed following the **local search** approach, with the following structure:
 
@@ -140,33 +91,95 @@ In order to estimate the solution to the optimization problem, an algorithm was 
     4. After Gurobi solves for the freed cells, we obtain a new solution. We then **update** our “best-known solution” if the new one is better according to the optimization objective. 
     5. Steps 1 through 4 are repeated until a **maximum number of iterations** or a **time limit** is reached.
 
-### 6.1.1. The ratio parameter
+### 5.1.1. The ratio parameter
 
 The `ratio` parameter is one of the main parameters of algorith. A ratio closer to 0 means selecting small portions of land to **re-optimize** in each iteration meanwhile having a `ratio` closer to 100 means solving almost the entire problem.
 
-Consequently, a small `ratio` means faster iterations but has less potential better optimality and a big `ratio` means slower iterations but more change to optimallity.
+Consequently, a small `ratio` means faster iterations but has less potential better optimality and a big `ratio` means slower iterations but more change to optimality.
 
-It is advised to experiment with different `ratio`'s, altough values between 0.1 and 0.6 are advised.
+It is advised to experiment with different `ratio` values for the right balance between number of iterations and effect of each iteration.
 
-### 6.2 Parallelizing
+### 5.2 Parallelization
 
-In **step 1.** of local search, several subproblems (.dat's) were solved in parallel. In order to do this the algorith is instructed to:
+In **step 1.** of local search, several subproblems are solved in parallel. In order to do this the algorith is instructed to:
 
 1. Determine the number of cores in the system.
 2. Assign a number of threads to each subproblem with a minimum of two threads per subproblem. In the case this is not feasable, as in for example, 8 cores with 100 subproblems, each subproblem is assignated 2 threads.
-3. The maximum number of parallel jobs is determined as max_workers = min(subproblem_count, num_cores // 2).
+3. The maximum number of parallel jobs is determined as $max\_workers = min(subproblem\_count, num\_cores // 2)$.
 4. The python object concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) is utilized to schedulle the threads.
 
-Given the process, there is no oversubscription.
+This is done to avoid oversubscription.
 
+
+## 6. Using this repository
+
+### 6.1 Dependencies:
+
+- Python 3.8+
+- Gurobi
+- Libraries:
+  - `numpy`
+  - `pandas`
+  - `gurobipy`
+
+### 6.2 Running the code
+
+#### 1. Set up Configuration
+
+Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
+- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem with `src/solve_problem.py`. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
+- **`/config_run_all.py`**: Configure parameters and paths for `run_all.py`,
+`src/solve_parallelized.py` and `src/join_and_local_search.py`.
+This file is divided is divided into two parts, both must be configured to run
+`run_all.py`.\
+To run only one of the underlying codes:
+  - First half is designed to configure `src/solve_parallelized.py`
+  - Second half is designed to configure `src/join_and_local_search.py`
+
+> :warning: **Warning**: It is very important to check the config files, as variables such as `Id`, `Names` and `Name`are used to save output files and incorrect use may lead to overwriting of output files.
+
+All paths are relative to the main directory. For more information about the configuration files, refer to `config/README.md`.
+
+#### 2. Prepare Data
+
+Ensure the input data files in the **`/data`** directory are available and in the correct format.
+
+#### 3. Running the Scripts
+
+To run the whole algorithm, solving the problem by parts, joining them and improving the solution with local search, run the file **`run_all.py`** from the main folder.
+
+It is also possible to run each step separately running the corresponding file from **`/src`**, although it is not recommended, except for debugging specific files.\
+**`src/solve_parallelized.py`** solves the partitions of the problem in parallel and **`src/join_and_local_search.py`** starts from an initial solution and uses **local search** to improve it.\
+To solve the problem or a subproblem exactly use **`src/solve_problem.py`**.
+
+It is highly recommended to run the scripts in a computer cluster or server, specially for large problems.
+
+> **Note**: Sometimes clusters can have trouble running files directly from the `/src` directory. If path related errors appear when running a scrpit other than `run_all.py`, consider moving the code file to be run, to the main directory.
+
+#### 4. Log Monitoring
+
+Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/README.md`** for details.
+
+#### 5. Results
+
+The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions.
 
 ## 7. References
 
 The original SustainScapes optimization repository can be found at [SustainScapesOptimization](https://github.com/Sustainscapes/OptimizationDataset).
+For more information about using *Gurobi*, please refer to the [Official Documentation](https://docs.gurobi.com/current/)
+
 
 ## 8. Contributions
 
-Repository made by students of the Pontificia Univerisdad Católica de Chile in assosiation with SustainScapes and Aarhus University.
+Repository made by
+ - Danilo Aballay
+ - Catalina Alegría
+ - Valentín Conejeros
+ - Vittorio Salvatore
+ - Cristóbal Silva
+
+Students of Pontificia Univerisdad Católica de Chile as part of a Capstone course in association with Derek Corcoran from SustainScapes and Aarhus University.
 
 ## 9. Licence
 
