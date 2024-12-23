@@ -6,7 +6,7 @@ def solve_subproblem(n_problem, threads):
     from gurobipy import GRB
     from time import time
     import re
-    import config.config_solve_parallelized as config
+    import config.config_all as config
 
     t0 = time()
 
@@ -240,12 +240,12 @@ def solve_subproblem(n_problem, threads):
 
     # Gurobi configuration
     model.setParam('LogToConsole', 0)
-    model.setParam('LogFile', config.gurobi_log_file[n_problem])
+    model.setParam('LogFile', config.gurobi_log_file_par[n_problem])
     model.setParam('Method', 3)
     model.setParam('ConcurrentMethod', 3)
 
     # Clearing the log file
-    with open(config.gurobi_log_file[n_problem], 'w') as file:
+    with open(config.gurobi_log_file_par[n_problem], 'w') as file:
         pass
 
     tf = time()
@@ -256,13 +256,13 @@ def solve_subproblem(n_problem, threads):
     tf = time()
     t_solve = tf - t0
 
-    with open(config.summary_path[n_problem], 'w') as file:
+    with open(config.summary_path_par[n_problem], 'w') as file:
         file.write(f'Time importing problem: {round(t_import)}s\n')
         file.write(f'Time solving problem: {round(t_solve)}s\n')
         file.write(f'Objective value: {model.objVal}\n')
 
     # Save the solution found
-    with open(config.results_path[n_problem], 'w') as file:
+    with open(config.results_path_par[n_problem], 'w') as file:
         for cell in cells:
             for land_use in land_uses:
                 if LanduseDecision[land_use, cell].x > 0.5:
