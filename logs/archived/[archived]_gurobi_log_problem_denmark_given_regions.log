@@ -1,0 +1,28 @@
+Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Rocky Linux 9.4 (Blue Onyx)")
+
+CPU model: AMD EPYC 7662 64-Core Processor, instruction set [SSE2|AVX|AVX2]
+Thread count: 128 physical cores, 128 logical processors, using up to 32 threads
+
+Optimize a model with 49431216 rows, 23945850 columns and 142480357 nonzeros
+Model fingerprint: 0x2ec7a379
+Variable types: 0 continuous, 23945850 integer (23945850 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e-04, 1e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+05]
+Presolve removed 0 rows and 0 columns (presolve time = 6s) ...
+Presolve removed 7126685 rows and 1062423 columns (presolve time = 12s) ...
+Presolve removed 7295220 rows and 2987783 columns (presolve time = 15s) ...
+Presolve removed 7295220 rows and 23945850 columns (presolve time = 21s) ...
+Presolve removed 49431216 rows and 23945850 columns
+Presolve time: 23.08s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 41.25 seconds (73.12 work units)
+Thread count was 1 (of 128 available processors)
+
+Solution count 1: 14672.8 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.467278170000e+04, best bound 1.467278170000e+04, gap 0.0000%

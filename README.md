@@ -93,7 +93,7 @@ Before running any scripts, ensure the configuration files in the **`/config`** 
 - **`/config_solve_parallelized.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`names`**, **`problems_pathlist`** and **`problem_path`**.
 - **`/config_join_local_search.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`pathlist`** and **`problem_path`**.
 
-All paths are relative to the main folder.
+All paths are relative to the main directory.
 
 2. Prepare Data
 
