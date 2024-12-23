@@ -28,7 +28,7 @@ Gurobi logs capture the output from Gurobi's optimization processes. These inclu
 - Objective value found after local search
 
 
-More information about them can be found at the[Gurobi Logging Documentation](https://docs.gurobi.com/projects/optimizer/en/current/concepts/logging.html).
+More information about them can be found at the [Gurobi Logging Documentation](https://docs.gurobi.com/projects/optimizer/en/current/concepts/logging.html).
 - If the algorithm invokes Gurobi multiple times, the logs are appended sequentially.  
 
 
