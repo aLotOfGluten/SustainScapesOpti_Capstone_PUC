@@ -5,9 +5,6 @@
 # so it is recommended to change it to avoid overwriting
 Id = 0
 
-# Number of subproblems/regions
-subproblem_count = 4
-
 # Ratio (var): ratio of the number of cells freed in the local search
 # as a percentage of the total number of cells in the problem
 ratio = 10.0
@@ -45,6 +42,9 @@ problems_pathlist = [
     'data/sjaelland.dat',
     'data/syddanmark.dat'
 ]
+
+# Number of subproblems/regions
+subproblem_count = len(problems_pathlist)
 
 # Cell ids (input): csv file with the cells ids
 # and the municipality they belong to
