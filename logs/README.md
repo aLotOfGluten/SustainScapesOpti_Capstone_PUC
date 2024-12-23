@@ -3,6 +3,8 @@
 
 The logs resulting from running the scripts are stored in this directory. Running `run_all.py` generates log files through `src/solve_parallelized` for each of the problems given and logfiles for the local search afterwards through `src/join_and_local_search.py`.
 
+Additionaly, the directory contains example files in `archived/`.
+
 ---
 ## Shared Log types
 ### **Gurobi Logs**

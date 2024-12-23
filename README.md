@@ -32,34 +32,32 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 
 ```
 SustainScapesOpti_Capstone_PUC/
-├── config/
+├── config/                   # Configuration files for optimization scripts
 │   ├── config_run_all.py
 │   ├── config_solve_problem.py
-│   ├── README.md
-├── data/
+│   └── README.md
+├── data/                     # Input datasets
 │   ├── cell_ids.csv
 │   ├── municip_keys.csv
 │   ├── municip_neighbors.txt
 │   ├── README.md
 │   └── RegionProblems.zip
-├── logs/
-│   ├── archived/
-│   ├── Logs_README.md
-│   └── README.md
-├── results/
+├── logs/                     # Logs generated during optimization runs
 │   ├── archived/
 │   └── README.md
-├── src/
+├── results/                  # Results from optimization scripts
+│   ├── archived/
+│   └── README.md
+├── src/                      # Core source code
 │   ├── join_and_local_search.py
 │   ├── README.md
 │   ├── solve_parallelized.py
 │   ├── solve_problem.py
-│   ├── utils.py
+│   └── utils.py
 ├── .gitignore
 ├── LICENSE
-├── README.md
+├── README.md                 # Main repository README
 └── run_all.py
-
 ```
 
 ### 4.1 Directories and Key files:
