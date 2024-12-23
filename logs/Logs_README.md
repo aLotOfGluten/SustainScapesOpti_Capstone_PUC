@@ -7,13 +7,6 @@ The logs resulting from running the scripts are stored in this directory.
 
 ### **Summary Logs**
 **Naming Convention**:  
-```
-summary_{script}_{identifier}.txt
-```
-
-These logs provide a summary of the algorithm's run. They include:  
-- Run times for different steps of the algorithm.  
-- Key results, such as the objective value of the optimization problem.
 
 ---
 

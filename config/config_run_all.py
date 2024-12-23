@@ -34,10 +34,10 @@ subproblem_count = len(problems_pathlist)
 # in found solution
 
 results_path_par = [
-    'results/problem_midtjylland_vars.txt',
-    'results/problem_nordjylland_vars.txt',
-    'results/problem_sjaelland_vars.txt',
-    'results/problem_syddanmark_vars.txt'
+    'results/vars_problem_midtjylland.txt',
+    'results/vars_problem_nordjylland.txt',
+    'results/vars_problem_sjaelland.txt',
+    'results/vars_problem_syddanmark.txt'
 ]
 
 # Summary (output): file path of the summary of the results.
@@ -50,10 +50,10 @@ summary_path_par = [
 
 # Gurobi LogFile (output): file path of the Gurobi log file
 gurobi_log_file_par = [
-    f'logs/parallelized_gurobi_log_{Id}_midtjylland.log',
-    f'logs/parallelized_gurobi_log_{Id}_nordjylland.log',
-    f'logs/parallelized_gurobi_log_{Id}_sjaelland.log',
-    f'logs/parallelized_gurobi_log_{Id}_syddanmark.log',
+    f'logs/gurobi_log_parallelized_{Id}_midtjylland.log',
+    f'logs/gurobi_log_parallelized_{Id}_nordjylland.log',
+    f'logs/gurobi_log_parallelized_{Id}_sjaelland.log',
+    f'logs/gurobi_log_parallelized_{Id}_syddanmark.log',
 ]
 
 

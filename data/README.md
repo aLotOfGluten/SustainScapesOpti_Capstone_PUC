@@ -1,4 +1,4 @@
-# Data Files Documentation
+# Data Files Documentation (`data`)
 
 In this directory are all the files necessary for the use of the algorithms in `/src`.
 

@@ -1,6 +1,6 @@
 # Configuration Files Directory (`results`)
 
-This directory contains the results of the optimization process, either resulting from `solve_problem.py` or from `join_and_local_search.py`.
+This directory contains the results of the optimization process, either resulting from `solve_problem.py` or `run_all.py`.
 
 Aditionaly, the directory contains results from solved problems in `../archived`.
 
