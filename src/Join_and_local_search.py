@@ -6,7 +6,7 @@ from time import time
 import re
 import sys
 from warnings import warn
-import config.config_all as config
+import config.config as config
 from src.utils import find_cluster
 
 
