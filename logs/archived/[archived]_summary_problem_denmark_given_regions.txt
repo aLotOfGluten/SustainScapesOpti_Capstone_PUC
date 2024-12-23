@@ -1,0 +1,4 @@
+Valor encontrado: 14672.781699998592
+Valor optimo: 14720.7
+Gap: 0.33%
+Tiempo de ejecución: ~1279.21 segundos

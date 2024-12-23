@@ -30,26 +30,29 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 ## 4. Repository Structure
 
 
-```plaintext
+```
+plaintext
 SustainScapesOpti/
 ├── config/                   # Configuration files for optimization scripts
+│   ├── config_all.py
 │   ├── config_join_local_search.py
-│   ├── config_solve_problem.py
 │   ├── config_solve_parallelized.py
+│   ├── config_solve_problem.py
+│   └── README.md
 ├── data/                     # Input datasets
 │   ├── cell_ids.csv
 │   ├── municip_keys.csv
 │   ├── municip_neighbors.txt
-│   └── RegionProblems.zip
-├── logs/                     # Logs generated during optimization runs
-│   ├── Logs_README.md
-│   └── (log files generated during execution)
+│   ├── RegionProblems.zip
+│   └── README.md
+├── logs/                     # Log files generated during execution
+│   └── README.md
 ├── results/                  # Results from optimization scripts
-│   └── (output files with optimized solutions)
+│   └── README.md
 ├── src/                      # Core source code
 │   ├── join_and_local_search.py
-│   ├── solve_problem.py
 │   ├── solve_parallelized.py
+│   ├── solve_problem.py
 │   ├── utils.py
 │   └── README.md
 ├── run_all.py
@@ -59,7 +62,7 @@ SustainScapesOpti/
 ```
 
 ### 4.1 Directories and Key files:
-- **`/config`**: Configuration files for running the optimization scripts in ../src. Must be set up properly before running.
+- **`/config`**: Configuration files for running the optimization scripts in `../src`. Must be set up properly before running.
     - **`config_solve_problem`**: Configuration for `solve_problem.py`.
     - **`config_solve_paralellized`**: Configuration for `solve_parallelized.py`.
     - **`config_join_local_search`**: Configuration for `join_and_local_search.py`.
