@@ -25,7 +25,7 @@ These logs capture the output from Gurobi's optimization processes.
 ```
 summary_{script}_{identifier}.txt
 ```
-Where script clarifies whether it was created by `solve_problem.py` or `solve_parallelized.py`.\
+Where `{script}` clarifies whether it was created by `solve_problem.py` or `solve_parallelized.py`.\
 These logs provide a summary of the algorithm's run. These include
 - Problem identifier
 - Time importing problem variables and restrictions
