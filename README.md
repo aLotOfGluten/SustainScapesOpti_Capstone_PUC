@@ -89,8 +89,11 @@ SustainScapesOpti/
 1. Set up Configuration
 
 Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
-- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem. 
-- **`/configjoin_local_search.py`**: Configure parameters and path for joining solutions and performing local search optimization.
+- **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
+- **`/config_solve_parallelized.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`names`**, **`problems_pathlist`** and **`problem_path`**.
+- **`/config_join_local_search.py`**: Configure parameters and path for joining solutions and performing local search optimization. To add or change datasets, just change the path in the variables **`pathlist`** and **`problem_path`**.
+
+All paths are relative to the main folder.
 
 2. Prepare Data
 
@@ -98,17 +101,15 @@ Ensure the input data files in the **`/data`** directory are available.
 
 3. Running the Scripts
 
+To run the whole algorithm, run the file **`run_all.py`** from the main folder. It is also possible to run each step separately running the corresponding file from **`/src`** 
 
 4. Log Monitoring
 
-Logs for each run are saved in the **`/logs`** directory. Refer to **`/Logs_README.md`** for details.
+Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/README.md`** for details.
 
 5. Output
 
-The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. 
-
-# TO DO
-# Terminar acá.
+The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. To evaluate the performance of the partitions see how to do it **`/results/README.md`**.
 
 
 ## 6 References
