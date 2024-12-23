@@ -380,6 +380,11 @@ def main():
                        f'{cant_cambios} '
                        f'{vals[-1]}\n')
 
+        # Save the solution found
+        with open(config.results_path, 'w') as file:
+            for cell, land_use in solution.items():
+                file.write(f'{cell} {land_use}\n')
+
     abs_tf = time()
     abs_time = abs_tf - abs_t0
 
@@ -393,10 +398,6 @@ def main():
             file.write(f'Objective value after first iteration: {vals[0]}\n')
         file.write(f'Final objective value achieved: {vals[-1]}\n')
 
-    # Save the solution found
-    with open(config.results_path, 'w') as file:
-        for cell, land_use in solution.items():
-            file.write(f'{cell} {land_use}\n')
 
 
 if __name__ == '__main__':
