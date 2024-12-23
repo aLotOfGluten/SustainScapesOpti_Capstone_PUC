@@ -19,7 +19,7 @@ This directory contains the configuration files required for running the optimiz
 - **Description**: Configuration file for solving the problem parallelized and the Join and Local Search algorithm.
 - Has two sections:
  
-## Configuration of `solve_parallelized.py`
+#### Configuration of `solve_parallelized.py`
 - **Description**: Configuration file for solving the problem directly without Local Search.
 - **Key Configurations**:
   - **Id**: Identifies the test to avoid overwriting output files.
@@ -32,7 +32,7 @@ This directory contains the configuration files required for running the optimiz
     - `summary_path_par`: Summary of results for the problem-solving process.
     - `gurobi_log_file_par`: Log file for Gurobi operations.
 
-## Configuration of `join_local_search.py`
+#### Configuration of `join_local_search.py`
 - **Description**: Configuration file for the Join and Local Search algorithm.
 - **Key Configurations**:
   - **ratio**: Percentage of cells freed during local search.

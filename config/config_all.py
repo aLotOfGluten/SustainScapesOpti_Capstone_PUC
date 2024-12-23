@@ -58,13 +58,6 @@ gurobi_log_file_par = [
 
 
 
-# # Log File (output): file path of the log file of the Local Search
-# log_file = f'logs/log_localsearch_{Id}.log'
-
-# # Municipality log (output):
-# # municipalities used in each iteration of Local Search
-# municip_log_path = f'logs/municip_log_{Id}.txt'
-
 ##################################################################
 # Description: Configuration file for the Local Search algorithm #
 ##################################################################
@@ -93,7 +86,7 @@ eval = True
 
 # Path_list (input):
 # Files to be imported as initial solution
-pathlist = problems_pathlist
+pathlist = results_path_par
 
 # Cell ids (input): csv file with the cells ids
 # and the municipality they belong to
