@@ -109,7 +109,7 @@ Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/READ
 
 5. Output
 
-The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. To evaluate the performance of the partitions see how to do it **`/results/README.md`**.
+The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions. To evaluate the performance of the partitions see how to do it **`/logs/README.md`**.
 
 
 ## 6 References
