@@ -22,7 +22,8 @@ def solve_subproblem(n_problem, threads):
     # Format for the next 3 dictionaries is {cell: {land_use: num}, ...}
     existing_nature = dict()     # Existing nature for each land use and cell
     richness = dict()            # Richness for each land use and cell
-    phylo_diversity = dict()     # Phylogenetic diversity for each land use and cell
+    phylo_diversity = dict()     # Phylogenetic diversity
+                                 # for each land use and cell
 
     transition_cost = 1
     can_change = dict()  # Indicates if a cell can change or not
@@ -278,15 +279,17 @@ def main():
     def distribute_cores_min_2(total_cores, n_subproblems):
 
         '''
-        Distribute cores among subproblems evenly if there are at least 2 cores per subproblem.
+        Distribute cores among subproblems evenly
+        if there are at least 2 cores per subproblem.
         Else, returns 2 cores per subproblem.
         '''
 
         if 2 * n_subproblems <= total_cores:
             leftover = total_cores - 2*n_subproblems
             base, remainder = divmod(leftover, n_subproblems)
-            distribution = [(2 + base + 1) for _ in range(remainder)] \
-                        + [(2 + base) for _ in range(n_subproblems - remainder)]
+            distribution = \
+                [(2 + base + 1) for _ in range(remainder)] \
+                + [(2 + base) for _ in range(n_subproblems - remainder)]
             return distribution
         else:
             return [2]*n_subproblems
@@ -304,13 +307,17 @@ def main():
 
     max_workers = min(subproblem_count, num_cores // 2)
 
-    print(f"Thread distribution among the {thread_distribution} subproblems: {thread_distribution}")
+    print(f"Thread distribution among the {thread_distribution} "
+          f"subproblems: {thread_distribution}")
     
-    with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers)\
+          as executor:
         futures = []
         for i in range(subproblem_count):
             # Resolver subproblema
-            futures.append(executor.submit(solve_subproblem, i, thread_distribution[i]))
+            futures.append(
+                executor.submit(solve_subproblem, i, thread_distribution[i])
+            )
 
 if __name__ == '__main__':
     main()
