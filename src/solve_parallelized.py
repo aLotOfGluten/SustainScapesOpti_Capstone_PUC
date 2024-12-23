@@ -300,11 +300,9 @@ def main():
     # Subproblem count
     subproblem_count = config.subproblem_count
 
-
     thread_distribution = distribute_cores_min_2(num_cores, subproblem_count)
 
     max_workers = min(subproblem_count, num_cores // 2)
-
 
     print(f"Thread distribution among the {thread_distribution} subproblems: {thread_distribution}")
     
