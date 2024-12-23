@@ -31,34 +31,37 @@ The problem was initially modeled in AMPL but has been adapted here using Python
 
 
 ```
-plaintext
-SustainScapesOpti/
-├── config/                   # Configuration files for optimization scripts
-│   ├── config_all.py
+SustainScapesOpti_Capstone_PUC/
+├── config/
 │   ├── config_join_local_search.py
+│   ├── config_run_all.py
 │   ├── config_solve_parallelized.py
 │   ├── config_solve_problem.py
-│   └── README.md
-├── data/                     # Input datasets
+│   ├── README.md
+├── data/
 │   ├── cell_ids.csv
 │   ├── municip_keys.csv
 │   ├── municip_neighbors.txt
-│   ├── RegionProblems.zip
+│   ├── README.md
+│   └── RegionProblems.zip
+├── logs/
+│   ├── archived/
+│   ├── Logs_README.md
 │   └── README.md
-├── logs/                     # Log files generated during execution
+├── results/
+│   ├── archived/
 │   └── README.md
-├── results/                  # Results from optimization scripts
-│   └── README.md
-├── src/                      # Core source code
+├── src/
 │   ├── join_and_local_search.py
+│   ├── README.md
 │   ├── solve_parallelized.py
 │   ├── solve_problem.py
 │   ├── utils.py
-│   └── README.md
-├── run_all.py
 ├── .gitignore
 ├── LICENSE
-└── README.md                 # Main repository README
+├── README.md
+└── run_all.py
+
 ```
 
 ### 4.1 Directories and Key files:
