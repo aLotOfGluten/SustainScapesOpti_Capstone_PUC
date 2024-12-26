@@ -318,7 +318,7 @@ def main():
         file.write('Iter total_time iter_time cells_changed objval\n')
     
     with open(config.municip_log_path, 'w') as file:
-        file.write('iter: municipalities used\n')
+        file.write('Iter: municipalities used\n')
 
     abs_t0 = time()
     while t_total < max_time and iter < max_iter:
