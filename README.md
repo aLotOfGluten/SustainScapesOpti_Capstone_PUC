@@ -56,6 +56,7 @@ SustainScapesOpti_Capstone_PUC/
 │   └── utils.py
 ├── .gitignore
 ├── LICENSE
+└── project_report.pdf        # Report and information about the project and findings.
 ├── README.md                 # Main repository README
 └── run_all.py
 ```
@@ -73,6 +74,7 @@ SustainScapesOpti_Capstone_PUC/
     - **`solve_problem.py`**: Python file that solves a single region separately.
     - **`solve_parallelized.py`**: Python file that solves for all regions in parallel.
     - **`join_and_local_search.py`**: Python file that joins separate solutions, joins them and then performs local search on them.
+- **`project_report.pdf`**: PDF that contains the research and findings of the project.
 - **`run_all.py`**: Python file that runs **`solve_parallelized.py`** and **`join_and_local_search.py`**.
 
 ## 5. The solving algorithm
