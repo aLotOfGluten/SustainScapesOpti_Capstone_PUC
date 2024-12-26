@@ -66,7 +66,9 @@ SustainScapesOpti_Capstone_PUC/
     - **`config_run_all`**: Configuration for `solve_parallelized.py` and `join_and_local_search.py`.
 - **`/data`**: Input datasets, including cell IDs, municipality mappings, and adjacency relationships.
 - **`/logs`**: Logs generated during optimization runs.
+  - `logs/archived`: Example files
 - **`/results`**: Output files containing the optimized solutions.
+  - `results/archived`: Example files
 - **`/src`**: Core source code for solving the optimization problem.
     - **`solve_problem.py`**: Python file that solves a single region separately.
     - **`solve_parallelized.py`**: Python file that solves for all regions in parallel.
