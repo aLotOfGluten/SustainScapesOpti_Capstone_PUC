@@ -27,7 +27,7 @@ This directory contains the configuration files required for running the optimiz
   - **name**: Names of tests. Identifies the test to avoid overwriting output files.
   - **Input File**:
     - `problem_path`: Path to the `.dat` file with the problem definition.
-    - `problems_pathlist`: Paths to the `.dat` file with the definition of each problem.
+    - `problems_pathlist`: Paths to the `.dat` file with the definition of each subproblem.
   - **Output Files**:
     - `results_path_par`: File to save the optimized cell assignments.
     - `summary_path_par`: Summary of results for the problem-solving process.

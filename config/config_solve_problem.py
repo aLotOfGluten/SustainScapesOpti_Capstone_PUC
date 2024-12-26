@@ -10,7 +10,7 @@ problem_path = 'data/midtjylland.dat'
 
 # Results (output): file path for the file with the asignment of cells
 # in found solution
-results_path = f'results/vars_problem_{name}.csv'
+results_path = f'results/vars_problem_{name}.txt'
 
 # Summary (output): file path of the summary of the results of the Local Search
 summary_path = f'logs/summary_problem_{name}.txt'

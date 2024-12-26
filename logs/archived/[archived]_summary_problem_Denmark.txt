@@ -1,0 +1,4 @@
+Summary solve problem Denmark:
+Time importing problem: 1047s
+Time solving problem: 80031s
+Objective value: 14721.84209999857

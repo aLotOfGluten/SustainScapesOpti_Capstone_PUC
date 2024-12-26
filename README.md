@@ -97,9 +97,9 @@ In order to estimate the solution to the optimization problem, an algorithm was 
 
 The `ratio` parameter is one of the main parameters of algorithm. A ratio closer to 0 means selecting small portions of land to **re-optimize** in each iteration meanwhile having a `ratio` closer to 100 means solving almost the entire problem.
 
-Consequently, a smaller `ratio` means faster iterations but has less potential to improve the solution meanwhile a big `ratio` means slower iterations but more change to optimality.
+Consequently, a smaller `ratio` means faster iterations but less potential to improve the solution, meanwhile a bigger `ratio` means slower iterations but more potential to change the solution.
 
-It is advised to experiment with different `ratio` values for the right balance between number of iterations and effect of each iteration.
+It is advised to experiment with different `ratio` values for the right balance between number of iterations and improvement in each iteration.
 
 ### 5.2 Parallelization
 
@@ -126,7 +126,19 @@ This is done to avoid oversubscription.
 
 ### 6.2 Running the code
 
-#### 1. Set up Configuration
+#### 1. Prepare Data
+
+Ensure the input data files in the **`/data`** directory are available and in the correct format. This includes the complete problem, and subproblems in `.dat` format, and additional files for local search. For more information, refer to `data/README.md`.
+
+#### 2. Choose the script to run
+To run the whole algorithm, solving the problem by parts, joining them and improving the solution with local search, run the file **`run_all.py`** from the main folder.
+
+It is also possible to run each step separately running the corresponding file from **`/src`**, although it is not recommended, except for debugging specific files.\
+**`src/solve_parallelized.py`** solves the partitions of the problem in parallel and **`src/join_and_local_search.py`** starts from an initial solution and uses **local search** to improve it.
+
+To solve the problem or a subproblem exactly use **`src/solve_problem.py`**.
+
+#### 3. Set up Configuration
 
 Before running any scripts, ensure the configuration files in the **`/config`** directory are set up properly:
 - **`/config_solve_problem.py`**: Configure the correct paths to the files to solve an individual regional problem with `src/solve_problem.py`. To change datasets, change the path in the variable **`name`** and **`problem_path`**.
@@ -142,27 +154,16 @@ To run only one of the underlying codes:
 
 All paths are relative to the main directory. For more information about the configuration files, refer to `config/README.md`.
 
-#### 2. Prepare Data
-
-Ensure the input data files in the **`/data`** directory are available and in the correct format.
-
-#### 3. Running the Scripts
-
-To run the whole algorithm, solving the problem by parts, joining them and improving the solution with local search, run the file **`run_all.py`** from the main folder.
-
-It is also possible to run each step separately running the corresponding file from **`/src`**, although it is not recommended, except for debugging specific files.\
-**`src/solve_parallelized.py`** solves the partitions of the problem in parallel and **`src/join_and_local_search.py`** starts from an initial solution and uses **local search** to improve it.\
-To solve the problem or a subproblem exactly use **`src/solve_problem.py`**.
-
-It is highly recommended to run the scripts in a computer cluster or server, specially for large problems.
+#### 4. Running the Scripts
+It is highly recommended to run the scripts in a computer cluster or server with `sbatch`, specially for large problems.
 
 > **Note**: Sometimes clusters can have trouble running files directly from the `/src` directory. If path related errors appear when running a scrpit other than `run_all.py`, consider moving the code file to be run, to the main directory.
 
-#### 4. Log Monitoring
+#### 5. Log Monitoring
 
 Logs for each run are saved in the **`/logs`** directory. Refer to **`/logs/README.md`** for details.
 
-#### 5. Results
+#### 6. Results
 
 The results of the optimization process are saved in the **`/results`** directory. Check this directory for output files with optimized solutions.
 
