@@ -56,7 +56,7 @@ SustainScapesOpti_Capstone_PUC/
 │   └── utils.py
 ├── .gitignore
 ├── LICENSE
-└── project_report.pdf        # Report and information about the project and findings.
+├── project_report.pdf        # Report and information about the project and findings.
 ├── README.md                 # Main repository README
 └── run_all.py
 ```
@@ -95,9 +95,9 @@ In order to estimate the solution to the optimization problem, an algorithm was 
 
 ### 5.1.1. The ratio parameter
 
-The `ratio` parameter is one of the main parameters of algorith. A ratio closer to 0 means selecting small portions of land to **re-optimize** in each iteration meanwhile having a `ratio` closer to 100 means solving almost the entire problem.
+The `ratio` parameter is one of the main parameters of algorithm. A ratio closer to 0 means selecting small portions of land to **re-optimize** in each iteration meanwhile having a `ratio` closer to 100 means solving almost the entire problem.
 
-Consequently, a small `ratio` means faster iterations but has less potential better optimality and a big `ratio` means slower iterations but more change to optimality.
+Consequently, a smaller `ratio` means faster iterations but has less potential to improve the solution meanwhile a big `ratio` means slower iterations but more change to optimality.
 
 It is advised to experiment with different `ratio` values for the right balance between number of iterations and effect of each iteration.
 
