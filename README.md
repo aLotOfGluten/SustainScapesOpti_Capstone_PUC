@@ -112,6 +112,12 @@ In **step 1.** of local search, several subproblems are solved in parallel. In o
 
 This is done to avoid oversubscription.
 
+### 5.3 Performance
+
+The results obtained after testing indicate that an initial solution can be obtained in roughly one eighth of the time it takes to exactly solve the full problem (in detail, testing yielded an exact soution in around 5.6 hours, while the algorithm found an aproximation in around 43 minutes. It is important to note that exact times may vary significantly between different computing devices or even in the same device) with an optimality loss of 0.33%.
+
+Additionaly, in the best case registered, the Local Search part of the alorithm improved the solution to a optimality gap of 0.22% within three hours (eight iterations), with the added benefit of beeing able to stop the algorithm at any time, allowing the user to choose a tradeoff between optimality and execution time.
+
 
 ## 6. Using this repository
 
